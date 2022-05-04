@@ -1,0 +1,34 @@
+.btn:hover {
+    color: black;
+    background-color:white;
+    transition: 350ms;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Zen Antique';
+    font-weight: bolder;
+    color: #483434;
+}
+p {
+    font-family: 'Roboto';
+}
+.intro {
+    padding: 4%;
+    margin: 2%
+}
+
+.sources {
+    align-items: center;
+    padding: 4%;
+    
+}
+
+.card-body:hover {
+    border: 3px solid #483434;
+    transition: 200ms;
+}
+
+.articles {
+    padding: 4%;
+    margin-top: 2%;
+}

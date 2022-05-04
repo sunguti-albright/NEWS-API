@@ -1,5 +1,5 @@
 import unittest
-from models import articles
+from app.models.models import articles
 Article = articles.Article
 
 class ArticleTest(unittest.TestCase):
@@ -11,7 +11,7 @@ class ArticleTest(unittest.TestCase):
             '''
             Set up method that will run before every test   
             '''
-            self.new_article = Article('Growing Religious Fervor on the Right and the Illusions Shattered by Putin’s War','Five articles from around The Times, narrated just for you','null','https://www.nytimes.com/2022/04/15/podcasts/religious-right-ukraine-war-narrated-articles.html','article_image')
+            self.new_article = Article("John Doe", "Match made in heaven", "The NBA all star game. The Grizzlies vs The Calves go head to head", "https://newsapi.org/register/success", "https://newsapi.org/register", "7th June")
     def test_instance(self):
         self.assertTrue(isinstance(self.new_article,Article))
 

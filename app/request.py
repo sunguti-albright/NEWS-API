@@ -1,56 +1,52 @@
 from app import app
-import urllib.request, json
-from .models import sources
-from .models import articles
+import urllib.request,json
+from app.models.models import Source,Article
 
-Source = sources.Source
-Article = articles.Article
 
-#getting apiKey from config.py
+# Getting api key
 apiKey = app.config['NEWS_API_KEY']
-#getting base url from config.py
-base_url = app.config['NEWS_BASE_URL']
 
-
-#############SOURCES####################
+# Getting base url
+base_url = app.config['NEWS_API_BASE_URL']
 
 def get_sources():
-    '''
-    Function that gets the json response to our url request
-    '''
+    """
+    A function that gets the json files from our url request
+    """
     get_sources_url = base_url.format(apiKey)
+
     with urllib.request.urlopen(get_sources_url) as url:
         get_sources_data = url.read()
         get_sources_response = json.loads(get_sources_data)
-    source_results =None
-    if get_sources_response["sources"]:
-        source_results_list = get_sources_response["sources"]
-        source_results = process_sources(source_results_list)
+
+        source_results= None
+
+        if get_sources_response["sources"]:
+            source_results_list = get_sources_response['sources']
+            source_results = process_results(source_results_list)
+
     return source_results
 
-def process_sources(source_list):
-    '''
-    Function that processes the source results and turns them into a list of objects
-    Args:
-        source_list: A list of dictionaries that contain source details
-    Returns:
-        source_results: A list of source objects
-    '''
-    source_results = []
+def process_results(source_list):
+    """
+    A function that processes the news sources results
+   
+    """
+    source_results=[]
     for source_item in source_list:
-        id = source_item.get('id')
-        name = source_item.get('name')
-        description = source_item.get('description')
-        url = source_item.get('url')
-        category = source_item.get('category')
-        
-       
-        source_object = Source(id,name,description,url,category)
+        id = source_item.get("id")
+        name = source_item.get("name")
+        description = source_item.get("description")
+        url = source_item.get("url")
+        category = source_item.get("category")
+
+
+        source_object = source.Source(id,name,description,url,category)
         source_results.append(source_object)
+
     return source_results
 
 
-#############ARTICLES####################
 def get_article(id):
     article_source_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,apiKey)
     print(article_source_url)
@@ -81,9 +77,7 @@ def process_articles_results(news):
         publishedAt = article.get ('publishedAt')
 
         if url:
-            article_objects = articles.Article(author,title,description,url,urlToImage,publishedAt)
+            article_objects = article.Article(author,title,description,url,urlToImage,publishedAt)
             article_source_results.append(article_objects)
 
-    return article_source_results
-
-    
+    return 
